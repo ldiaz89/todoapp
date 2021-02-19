@@ -28,7 +28,7 @@ function ListTodos() {
   };
   const deleteTodo = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/todos/${id}`);
+      const response = await axios.delete(`/todos/${id}`);
       alert("delete succes");
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
