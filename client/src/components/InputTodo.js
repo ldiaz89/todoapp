@@ -20,7 +20,7 @@ function InputTodo() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/todos", {
+      const response = await axios.post("http://localhost:5000/todos", {
         description,
       });
       setState({ open: true, vertical: 'top', horizontal: 'center'  })

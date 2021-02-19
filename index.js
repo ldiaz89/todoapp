@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json())
 
 //ROUTES
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 //create todo
 app.post('/todos', async (req,res) =>{
     try {
