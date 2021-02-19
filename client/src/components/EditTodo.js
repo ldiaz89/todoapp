@@ -8,7 +8,7 @@ function EditTodo({ todo }) {
     try {
       e.preventDefault();
       const response = await axios.put(
-        `http://localhost:5000/${todo.todo_id}`,
+        `http://localhost:5000/todos/${todo.todo_id}`,
         { description }
       );
       window.location = '/'

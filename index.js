@@ -2,6 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const pool = require('./db')
 const app = express();
+const path = require("path");
+// app.use(express.static(path.join(__dirname, "client/build")));
+// app.use(express.static("./client/build")); => for demonstration
+
+if (process.env.NODE_ENV === "production") {
+    //server static content
+    //npm run build
+    app.use(express.static(path.join(__dirname, "client/build")));
+  }
 
 //middleware
 
@@ -18,14 +27,14 @@ app.post('/todos', async (req,res) =>{
         const newTodo = await pool.query("INSERT INTO todo (description) VALUES($1) RETURNING *",[description])
         res.json(newTodo.rows[0])
     } catch (error) {
-        console.error(err.message)
+        console.error(error.message)
         
     }
 })
 
 //get all todo
 
-app.get('/', async (req, res) => {
+app.get('/todos', async (req, res) => {
     try {
         const allTodos = await pool.query("SELECT * FROM todo")
         res.json(allTodos.rows)
@@ -36,7 +45,7 @@ app.get('/', async (req, res) => {
 
 //update a todo
 
-app.put('/:id', async (req, res) =>{
+app.put('/todos/:id', async (req, res) =>{
     console.log(req.params)
     try {
         const {id} = req.params;
@@ -62,7 +71,7 @@ app.get("/todos/:id", async (req, res) =>{
 
 //delete a todo
 
-app.delete('/:id', async(req,res) =>{
+app.delete('/todos/:id', async(req,res) =>{
     console.log(req.params)
     try {
         const {id} = req.params
